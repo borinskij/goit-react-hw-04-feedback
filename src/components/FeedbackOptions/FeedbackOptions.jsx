@@ -11,7 +11,7 @@ export const FeedbackOptions = ({ hendelClick, options }) => {
         <button
           key={element}
           type="button"
-          className="btn btn-primary"
+          className="btn btnPrimary"
           name={element}
           onClick={hendelClick}
         >

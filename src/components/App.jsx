@@ -1,64 +1,43 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { Section } from './SectionTitle/SectionTitle.jsx';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions.jsx';
 import { Statistics } from './Statistics/Statistics.jsx';
 
-export class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
-  hendelClick = event => {
+export const App = () => {
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+
+  const hendelClick = event => {
     const { name } = event.target;
-    return this.setState({ [name]: this.state[name] + 1 });
+
+    switch (name) {
+      case 'good':
+        setGood(good + 1);
+        break;
+      case 'neutral':
+        setNeutral(neutral + 1);
+        break;
+      case 'bad':
+        setBad(bad + 1);
+        break;
+      default:
+        break;
+    }
   };
-  render() {
-    return (
-      <div style={{ margin: 50 }}>
-        <Section title="Please leave feedback">
-          <FeedbackOptions
-            hendelClick={this.hendelClick}
-            options={Object.keys(this.state)}
-          />
-        </Section>
-        <Section title="Statistics">
-          <Statistics state={this.state} />
-        </Section>
-      </div>
-    );
-  }
-}
-//  import React from 'react'
-//  import PropTypes from 'prop-types'
 
-//  function App() {
-// const [] = useState(0)
-// state = {
-//   good: 0,
-//   neutral: 0,
-//   bad: 0,
-// };
-// hendelClick = event => {
-//   const { name } = event.target;
-//   return this.setState({ [name]: this.state[name] + 1 });
-// };
+  return (
+    <div style={{ margin: 50 }}>
+      <Section title="Please leave feedback">
+        <FeedbackOptions
+          hendelClick={hendelClick}
+          options={['good', 'neutral', 'bad']}
+        />
+      </Section>
+      <Section title="Statistics">
+        <Statistics state={{ good, neutral, bad }} />
+      </Section>
+    </div>
+  );
+};
 
-//    return (
-//      <div style={{ margin: 50 }}>
-//   <Section title="Please leave feedback">
-//     <FeedbackOptions
-//       hendelClick={this.hendelClick}
-//       options={Object.keys(this.state)}
-//     />
-//   </Section>
-//   <Section title="Statistics">
-//     <Statistics state={this.state} />
-//   </Section>
-// </div>
-//    )
-//  }
-
-//  App.propTypes = {}
-
-//  export default App
